@@ -7,6 +7,7 @@ import {
   Pressable,
   Image,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import * as location from "expo-location";
@@ -14,6 +15,8 @@ import { useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import ImageSlider from "../components/ImageSlider";
 import Services from "../components/Services";
+import products from "../data/products";
+import Product from "../components/Product";
 
 const HomeScreen = () => {
   const [showCurrentAddress, setShowCurrentAddress] = useState(
@@ -76,7 +79,8 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor:""}}>
+    <ScrollView
+    style={{ backgroundColor: "#FFFFFF", marginTop:20 }}>
       {/** address */}
       <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
         <MaterialIcons name="add-location" size={24} color="#fd5c63" />
@@ -103,19 +107,25 @@ const HomeScreen = () => {
           alignItems: "center",
           justifyContent: "space-between",
           borderColor: "#C0C0C0",
-          borderRadius:8,
+          borderRadius: 8,
         }}
       >
         <TextInput placeholder="search for items..." />
         <MaterialIcons name="search" size={24} color="#fd5c63" />
       </View>
       {/* image slider  */}
-      <ImageSlider/> 
-      
+      <ImageSlider />
+
       {/* Services  <Services /> */}
-      <Services /> 
-      
-    </SafeAreaView>
+      <Services />
+
+       {/*  */}
+       {products.map((product, i) => (
+        <Product item={product} key={i}/>
+       ))}
+    </ScrollView>
+
+   
   );
 };
 
