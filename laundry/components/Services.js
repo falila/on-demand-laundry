@@ -7,29 +7,52 @@ import {
   Image,
 } from "react-native";
 import React from "react";
+const handWatch =  require("../assets/hand-watch-icon.png");
+const washIron =  require("../assets/wash-iron-icon.png");
+const iron =  require("../assets/iron.png");
+const washing =  require("../assets/icon.png");
+const cleaning =  require("../assets/cleaning-icon.png");
+const laundryIcon =  require("../assets/laundry-icon.png");
+const delivery =  require("../assets/bike-driver-icon.png");
 
 export default Services = () => {
   const services = [
     {
       id: "0",
-      image: "https://cdn-icons-png.flaticon.com/128/3003/3003984.png",
+      image: washing,
       name: "Washing",
     },
     {
+      id: "14",
+      image: delivery,
+      name: "Delivery",
+    },
+    {
+      id: "15",
+      image: iron,
+      name: "Ironning",
+    },
+    {
+      id: "16",
+      image: handWatch,
+      name: "Hand-Watching",
+    },
+    {
       id: "11",
-      image: "https://cdn-icons-png.flaticon.com/128/2975/2975175.png",
+      image: laundryIcon,
       name: "Laundry",
     },
     {
       id: "12",
-      image: "https://cdn-icons-png.flaticon.com/128/9753/9753675.png",
+      image: washIron,
       name: "Wash & Iron",
     },
     {
       id: "13",
-      image: "https://cdn-icons-png.flaticon.com/128/995/995016.png",
+      image:  cleaning,
       name: "Cleaning",
     },
+   
   ];
 
   return (
@@ -40,7 +63,7 @@ export default Services = () => {
           <Pressable key={index} style={{alignItems:"center", padding:15, backgroundColor:"white", borderRadius:7}}>
             <Image
               style={{ width: 70, height: 70 }}
-              source={{ uri: service.image }}
+              source={  service.image }
             />
             <Text style={{textAlign:"center", marginTop:8}}>{service.name}</Text>            
           </Pressable>          
