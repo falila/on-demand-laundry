@@ -16,9 +16,22 @@ import { MaterialIcons } from "@expo/vector-icons";
 import ImageSlider from "../components/ImageSlider";
 import Services from "../components/Services";
 import products from "../data/products";
-import Product from "../components/Product";
+import ProductItem from "../components/ProductItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../ProductReducer";
+import { useNavigation } from "@react-navigation/native";
+
 
 const HomeScreen = () => {
+  const cart = useSelector((state) => state.cart.cart);
+  const product = useSelector((state) => state.product.product);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const total = cart
+    .map((item) => item.quantity * item.price)
+    .reduce((current, prev) => current + prev, 0);
+
   const [showCurrentAddress, setShowCurrentAddress] = useState(
     "loading current location"
   );
@@ -27,7 +40,15 @@ const HomeScreen = () => {
   useEffect(() => {
     //checkIfLocationEnabled();
     //getCurrentLocation();
-    setShowCurrentAddress("Paris ile de france");
+    setShowCurrentAddress("Toronto 2nd Floor");
+  }, []);
+
+  useEffect(() => {
+    if (product && product.length > 0) return;
+    const fetchProduct = () => {
+      products.map((product) => dispatch(getProducts(product)));
+    };
+    fetchProduct();
   }, []);
 
   const checkIfLocationEnabled = async () => {
@@ -79,53 +100,74 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView
-    style={{ backgroundColor: "#FFFFFF", marginTop:20 }}>
-      {/** address */}
-      <View style={{ flexDirection: "row", alignItems: "center", padding: 10 }}>
-        <MaterialIcons name="add-location" size={24} color="#fd5c63" />
-        <View>
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
-          <Text> {showCurrentAddress}</Text>
+    <>
+      <ScrollView style={{ backgroundColor: "#FFFFFF", marginTop: 40 }}>
+        {/** address */}
+        <View
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        >
+          <MaterialIcons name="add-location" size={24} color="#fd5c63" />
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+            <Text> {showCurrentAddress}</Text>
+          </View>
+          <Pressable style={{ marginLeft: "auto", marginRight: "2%" }}>
+            <Image
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+              source={{
+                uri:
+                  "https://lh3.googleusercontent.com/ogw/AKPQZvxOlIHWLMqc8ypzqU01tL5aujbfKL7Llp_2zLXq9Jc=s32-c-mo",
+              }}
+            />
+          </Pressable>
         </View>
-        <Pressable style={{ marginLeft: "auto", marginRight: "2%" }}>
-          <Image
-            style={{ width: 40, height: 40, borderRadius: 20 }}
-            source={{
-              uri:
-                "https://lh3.googleusercontent.com/ogw/AKPQZvxOlIHWLMqc8ypzqU01tL5aujbfKL7Llp_2zLXq9Jc=s32-c-mo",
-            }}
-          />
+        {/* Search bar */}
+        <View
+          style={{
+            flexDirection: "row",
+            padding: 10,
+            margin: 10,
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderColor: "#C0C0C0",
+            borderRadius: 8,
+          }}
+        >
+          <TextInput placeholder="search for items..." />
+          <MaterialIcons name="search" size={24} color="#fd5c63" />
+        </View>
+        {/* image slider  */}
+        <ImageSlider/>
+
+        {/* Services  <Services /> */}
+        <Services/>
+
+        {/*  */}
+        {product &&
+          product.map((product, i) => <ProductItem item={product} key={i} />)}
+      </ScrollView>
+      {total === 0 ? null : (
+        <Pressable
+          style={{
+            backgroundColor: "#088F8F",
+            padding: 10,
+            marginBottom: 30,
+            margin: 15,
+            borderRadius: 7,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <Text style={{ fontSize:17, fontWeight:"500", color:"white", }}>{cart.length} items |  $ {total}</Text>
+            <Text style={{ fontSize:15, fontWeight:"400", color:"white", }}>extra charges migth apply</Text>
+          </View>
+          <Pressable onPress={()=> navigation.navigate("Pickup")}>
+            <Text style={{ fontSize:16, fontWeight:"600", color:"white", }}> Proceed to pickup</Text>
+          </Pressable>
         </Pressable>
-      </View>
-      {/* Search bar */}
-      <View
-        style={{
-          flexDirection: "row",
-          padding: 10,
-          margin: 10,
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderColor: "#C0C0C0",
-          borderRadius: 8,
-        }}
-      >
-        <TextInput placeholder="search for items..." />
-        <MaterialIcons name="search" size={24} color="#fd5c63" />
-      </View>
-      {/* image slider  */}
-      <ImageSlider />
-
-      {/* Services  <Services /> */}
-      <Services />
-
-       {/*  */}
-       {products.map((product, i) => (
-        <Product item={product} key={i}/>
-       ))}
-    </ScrollView>
-
-   
+      )}
+    </>
   );
 };
 
