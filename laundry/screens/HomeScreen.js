@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
 import { useNavigation } from "@react-navigation/native";
 
-
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
   const product = useSelector((state) => state.product.product);
@@ -137,10 +136,10 @@ const HomeScreen = () => {
           <MaterialIcons name="search" size={24} color="#fd5c63" />
         </View>
         {/* image slider  */}
-        <ImageSlider/>
+        <ImageSlider />
 
         {/* Services  <Services /> */}
-        <Services/>
+        <Services />
 
         {/*  */}
         {product &&
@@ -159,11 +158,18 @@ const HomeScreen = () => {
           }}
         >
           <View>
-            <Text style={{ fontSize:17, fontWeight:"500", color:"white", }}>{cart.length} items |  $ {total}</Text>
-            <Text style={{ fontSize:15, fontWeight:"400", color:"white", }}>extra charges migth apply</Text>
+            <Text style={{ fontSize: 17, fontWeight: "500", color: "white" }}>
+              {cart.length} items | $ {total}
+            </Text>
+            <Text style={{ fontSize: 15, fontWeight: "400", color: "white" }}>
+              extra charges migth apply
+            </Text>
           </View>
-          <Pressable onPress={()=> navigation.navigate("Pickup")}>
-            <Text style={{ fontSize:16, fontWeight:"600", color:"white", }}> Proceed to pickup</Text>
+          <Pressable onPress={() => navigation.navigate("Pickup")}>
+            <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>
+              {" "}
+              Proceed to pickup
+            </Text>
           </Pressable>
         </Pressable>
       )}

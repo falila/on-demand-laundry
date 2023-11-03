@@ -231,7 +231,7 @@ const CartScreen = () => {
                       color: "#088F8F",
                     }}
                   >
-                    {route.params.pickUpDate}
+                    {/*route.params.pickUpDate*/}
                   </Text>
                 </View>
 
@@ -304,7 +304,7 @@ const CartScreen = () => {
                     To Pay
                   </Text>
                   <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                    {total + 25}
+                    $ {total + 25}
                   </Text>
                 </View>
               </View>

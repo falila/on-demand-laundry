@@ -16,9 +16,9 @@ import {
   MaterialCommunityIcons,
   Fontisto,
 } from "@expo/vector-icons";
-import {createUserWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
-import {setDoc, doc} from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState();
@@ -41,19 +41,19 @@ const RegisterScreen = () => {
         { cancelable: false }
       );
     } else {
-        console.log("register");
-        createUserWithEmailAndPassword(auth, email, password).then((userCredentials) => {
-            console.log(userCredentials);
-            const UserUuid = auth.currentUser.uid;
-            const userEmail = userCredentials._tokenResponse.email;
-            //set user
-            setDoc(doc(db, "users",`${UserUuid}`), {
-                email: userEmail,
-                phone: phone,
-
-            })
+      console.log("register");
+      createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredentials) => {
+          console.log(userCredentials);
+          const UserUuid = auth.currentUser.uid;
+          const userEmail = userCredentials._tokenResponse.email;
+          //set user
+          setDoc(doc(db, "users", `${UserUuid}`), {
+            email: userEmail,
+            phone: phone,
+          });
         }
-        );
+      );
     }
   };
 
