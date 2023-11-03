@@ -41,10 +41,8 @@ const RegisterScreen = () => {
         { cancelable: false }
       );
     } else {
-      console.log("register");
       createUserWithEmailAndPassword(auth, email, password).then(
         (userCredentials) => {
-          console.log(userCredentials);
           const UserUuid = auth.currentUser.uid;
           const userEmail = userCredentials._tokenResponse.email;
           //set user

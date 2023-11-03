@@ -90,7 +90,6 @@ const HomeScreen = () => {
     if (coords) {
       const { latitude, longitude } = coords;
       let res = await location.reverseGeocodeAsync({ latitude, longitude });
-      console.log(res);
       for (let item of res) {
         let address = `${item.name} ${item.city} ${item.postalCode}`;
         setShowCurrentAddress(address);
