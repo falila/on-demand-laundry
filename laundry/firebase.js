@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { apiKey, authDomain, storageBucket, messagingSenderId, appId } from "@env";
+import { apiKey, authDomain, storageBucket, messagingSenderId} from "@env";
 
 const firebaseConfig = {
   apiKey: apiKey,
@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: "laundry-app-9e5a4",
   storageBucket: storageBucket,
   messagingSenderId: messagingSenderId,
-  appId: appId,
+  appId: "1:1042349287662:web:7b43c4baccb58e6bd02bff",
   measurementId: "G-FL1YZ01GGD",
 };
 
